@@ -8,7 +8,7 @@ export function takeApple(money, isIInside, askedApple) {
     return null;
 }
 
-export function getChange(money, isIInside, product, productsQty = 1){
+export function buy(money, isIInside, product, productsQty = 1){
     if(isIInside && money != null){
         let cost = getProductCost(product);
         orderSumm += cost;
@@ -32,5 +32,7 @@ function getProductCost(productName) {
     switch(productName){
         case 'apple':
             return apple.cost;
+        default:
+            throw new Error('Sorry we havent bread');
     }
 }

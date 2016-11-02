@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { takeApple, isClientInside, getChange, getDiscountIfOrderMore200 } from './src/shop';
+import { takeApple, isClientInside, buy, getDiscountIfOrderMore200 } from './src/shop';
 
 suite('When I in the shop', function () {
     suite("if I pay money and ask apple", function () {
@@ -21,7 +21,7 @@ suite('When I in the shop', function () {
             let askedApple = 'apple';
 
 
-            let change = getChange(money, isIInside, askedApple);
+            let change = buy(money, isIInside, askedApple);
 
             assert.equal(change, 50)
         })
@@ -35,10 +35,22 @@ suite('When I in the shop', function () {
             let appleQty = 5;
 
 
-            getChange(money, isIInside, askedApple, 5);
+            buy(money, isIInside, askedApple, 5);
             let discount = getDiscountIfOrderMore200();
 
             assert.equal(discount, true)
+        })
+    });
+
+    suite('if buy bread', function () {
+        test('seller say "Sorry we havent bread"', function () {
+            let money = 250;
+            let isIInside = isClientInside();
+            let askedBread = 'bread';
+
+            assert.throws(function () {
+                buy(money, isIInside, askedBread);
+            }, /Sorry we havent bread/);
         })
     });
 
