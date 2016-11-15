@@ -12,6 +12,17 @@ suite('When I in the shop', function () {
 
             assert.equal(apple, 'apple')
         })
+
+        test('I bought two apples', function () {
+            let money = {};
+            let isIInside = isClientInside();
+            let askedApple = 'apple';
+            let qty = 2;
+
+            let apple = takeApple(money, isIInside, askedApple, qty);
+
+            assert.equal(apple.qty, 2)
+        })
     });
 
     suite('if I pay 100 for apple', function () {
