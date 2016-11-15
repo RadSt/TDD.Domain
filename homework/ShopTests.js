@@ -19,8 +19,8 @@ suite('When I in the shop', function () {
             let askedApple = 'apple';
             let qty = 2;
 
-            let apple = takeApple(money, isIInside, askedApple, qty);
-
+            let apple = buy(money, isIInside, askedApple, qty);
+            console.log(apple);
             assert.equal(apple.qty, 2)
         })
     });
