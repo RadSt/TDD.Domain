@@ -1,5 +1,6 @@
-var apple = { name:'apple', cost: 50, qty: 0 };
+var order = { productName:'apple', cost: 50, qty: 0, change:0 };
 var orderSumm = 0;
+var procentDiscount = 10;
 
 export function takeApple(money, isIInside, askedApple) {
     if(isIInside && money != null){
@@ -9,23 +10,25 @@ export function takeApple(money, isIInside, askedApple) {
 }
 
 export function buy(money, isIInside, product, productsQty = 1){
+
     if(isIInside && money != null && productsQty == 1){
         let cost = getProductCost(product);
         orderSumm += cost;
-        return money - (cost * productsQty);
+        return money - (order.cost * productsQty);
     }
-    if(productsQty > 1){
-        apple.qty = productsQty;
-        return apple;
+    if(isIInside && money != null && productsQty > 1){
+        order.qty = productsQty;
+        order.change = money - getDiscountForOrderMoreOrEqual500((order.cost * productsQty));
+        return order;
     }
     return 0;
 }
 
-export function getDiscountIfOrderMore200(){
-    if(orderSumm > 200){
-        return true;
+function getDiscountForOrderMoreOrEqual500(orderSumm){
+    if(orderSumm >= 500){
+        return orderSumm - (procentDiscount / 100 * orderSumm);
     }
-    return true;
+    return orderSumm;
 }
 
 export function isClientInside() {
@@ -35,7 +38,7 @@ export function isClientInside() {
 function getProductCost(productName) {
     switch(productName){
         case 'apple':
-            return apple.cost;
+            return order.cost;
         default:
             throw new Error('Sorry we havent bread');
     }

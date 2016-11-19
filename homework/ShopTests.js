@@ -8,9 +8,9 @@ suite('When I in the shop', function () {
             let isIInside = isClientInside();
             let askedApple = 'apple';
 
-            let apple = takeApple(money, isIInside, askedApple);
+            let order = takeApple(money, isIInside, askedApple);
 
-            assert.equal(apple, 'apple')
+            assert.equal(order, 'apple')
         })
 
         test('I bought two apples', function () {
@@ -19,9 +19,9 @@ suite('When I in the shop', function () {
             let askedApple = 'apple';
             let qty = 2;
 
-            let apple = buy(money, isIInside, askedApple, qty);
-            console.log(apple);
-            assert.equal(apple.qty, 2)
+            let order = buy(money, isIInside, askedApple, qty);
+
+            assert.equal(order.qty, 2)
         })
     });
 
@@ -38,18 +38,17 @@ suite('When I in the shop', function () {
         })
     });
 
-    suite('if I pay 250 for apple', function () {
-        test('I receive discount', function () {
-            let money = 250;
+    suite('if I pay 500 for apple and order 10 apples', function () {
+        test('I receive change 50 from discount 10%', function () {
+            let money = 500;
             let isIInside = isClientInside();
             let askedApple = 'apple';
-            let appleQty = 5;
+            let appleQty = 10;
 
 
-            buy(money, isIInside, askedApple, 5);
-            let discount = getDiscountIfOrderMore200();
+            let order = buy(money, isIInside, askedApple, appleQty);
 
-            assert.equal(discount, true)
+            assert.equal(order.change, 50)
         })
     });
 
